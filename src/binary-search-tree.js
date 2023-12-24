@@ -45,9 +45,18 @@ class BinarySearchTree {
         return hasData(this.spine, data);
     }
 
-    find(/* data */) {
-        throw new NotImplementedError("Not implemented");
-        // remove line with error and write your code here
+    find(data) {
+        const findData = (node, data) => {
+            if (!node) return null;
+
+            if (node.data === data) return node;
+
+            if (data < node.data) return findData(node.left, data);
+            else return findData(node.right, data);
+
+        };
+
+        return findData(this.spine, data);
     }
 
     remove(data) {
@@ -90,22 +99,22 @@ class BinarySearchTree {
     }
 
     min() {
-        if(!this.spine) return;
+        if (!this.spine) return null;
         let node = this.spine;
 
-        while(node.left){
-          node = node.left;
+        while (node.left) {
+            node = node.left;
         }
 
         return node.data;
     }
 
     max() {
-        if(!this.spine) return;
+        if (!this.spine) return null;
         let node = this.spine;
 
-        while(node.right){
-          node = node.right;
+        while (node.right) {
+            node = node.right;
         }
 
         return node.data;
