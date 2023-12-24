@@ -37,7 +37,7 @@ class BinarySearchTree {
             if (!node) return false;
 
             if (node.data === data) return true;
-            
+
             if (data < node.data) return hasData(node.left, data);
             else return hasData(node.right, data);
         };
@@ -50,9 +50,43 @@ class BinarySearchTree {
         // remove line with error and write your code here
     }
 
-    remove(/* data */) {
-        throw new NotImplementedError("Not implemented");
-        // remove line with error and write your code here
+    remove(data) {
+        const removeNode = (node, data) => {
+            if (!node) return null;
+
+            if (node.data > data) {
+                node.left = removeNode(node.left, data);
+                return node;
+            } else if (node.data < data) {
+                node.right = removeNode(node.right, data);
+                return node;
+            } else {
+                if (!node.left && !node.right) {
+                    return null;
+                }
+
+                if (!node.left) {
+                    node = node.right;
+                    return node;
+                }
+
+                if (!node.right) {
+                    node = node.left;
+                    return node;
+                }
+
+                let minFromRight = node.right;
+                while (minFromRight.left) {
+                    minFromRight = minFromRight.left;
+                }
+                node.data = minFromRight.data;
+                node.right = removeNode(node.right, minFromRight.data);
+
+                return node;
+            }
+        };
+
+        this.spine = removeNode(this.spine, data);
     }
 
     min() {
