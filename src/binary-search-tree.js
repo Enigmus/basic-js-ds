@@ -90,8 +90,14 @@ class BinarySearchTree {
     }
 
     min() {
-        throw new NotImplementedError("Not implemented");
-        // remove line with error and write your code here
+        if(!this.spine) return;
+        let node = this.spine;
+
+        while(node.left){
+          node = node.left;
+        }
+
+        return node.data;
     }
 
     max() {
